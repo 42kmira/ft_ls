@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 22:59:09 by kmira             #+#    #+#             */
-/*   Updated: 2019/06/02 15:02:24 by kmira            ###   ########.fr       */
+/*   Updated: 2019/06/02 23:02:42 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ enum	e_myerrors {
 # define IS_SORTING( FLAG ) ( FLAG & 0b11000 )
 
 typedef int16_t	t_flag_bit;
+
+# define IS_SORTING_FLAG 0b110000
 
 enum	e_flags
 {
@@ -58,7 +60,6 @@ typedef struct			s_file_tree
 {
 	char				d_name[FILENAME_MAX];
 	char				path_name[__DARWIN_MAXPATHLEN];
-
 	struct s_file_tree	*smaller;
 	struct s_file_tree	*greater;
 }						t_file_tree;

@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/06/02 14:49:45 by kmira            ###   ########.fr        #
+#    Updated: 2019/06/02 23:51:35 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ FILES = \
 			ls_recursion \
 			main \
 			output \
-			utils
+			utils \
+			set_compare_function
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
@@ -55,4 +56,5 @@ re: fclean all
 rebuild: clean
 	rm -f $(NAME)
 	make all
+	make clean
 	clear

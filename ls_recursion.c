@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 19:23:45 by kmira             #+#    #+#             */
-/*   Updated: 2019/06/02 20:00:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/06/03 02:28:23 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void		tree_recursion(t_file_tree *root, t_flag_bit *flags)
 	}
 }
 
-void		ls_recurse_into(char const *argv, t_flag_bit *flags)
+void		ls_recurse_into(char const *directory_path, t_flag_bit *flags)
 {
 	t_file_tree	*head;
 
 	if (*flags & FLAG_FIRST_CALL)
 		*flags = *flags ^ FLAG_FIRST_CALL;
-	head = create_tree(argv, *flags);
-	tree_traversal(head, *flags);
+	head = create_tree(directory_path, *flags);
+	tree_traversal(head, *flags, directory_path);
 	tree_recursion(head, flags);
 	free_tree(head);
 }

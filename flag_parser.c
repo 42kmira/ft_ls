@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 23:50:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/05/30 10:35:20 by kmira            ###   ########.fr       */
+/*   Updated: 2019/06/02 23:19:25 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_flags				g_flags[] =
 	FLAG(l),
 	FLAG(R),
 	FLAG(a),
-	FLAG(R),
+	FLAG(r),
 	FLAG(t),
 	{UNDEFINED_FLAG, 0}
 };

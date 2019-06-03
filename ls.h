@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 22:36:31 by kmira             #+#    #+#             */
-/*   Updated: 2019/06/02 17:15:14 by kmira            ###   ########.fr       */
+/*   Updated: 2019/06/03 03:41:57 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 
 # include <dirent.h>
 # include <errno.h>
+# include <grp.h>
+# include <pwd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -70,11 +72,11 @@ void		ls_main(const char *file, t_flag_bit *flags);
 ** Function dealing with opening the directory and sorting using a binary tree
 */
 
-void		tree_traversal(t_file_tree *root, t_flag_bit flags);
+void		tree_traversal(t_file_tree *root, t_flag_bit flags, char const *directory_path);
 void		tree_recursion(t_file_tree *root, t_flag_bit *flags);
 t_file_tree	*create_tree(const char *directory, t_flag_bit flags);
 void		insert_to_tree_structure
-			(t_file_tree *root, struct dirent *file, char const *dir_path);
+			(t_file_tree *root, struct dirent *file, char const *dir_path, t_flag_bit flags, int (*compare_funct)(t_flag_bit, char const *, char const *, char const *));
 void		free_tree(t_file_tree *root);
 
 /*
@@ -91,7 +93,7 @@ t_flag_bit	set_flags(char const *argv[], size_t *arguement_start);
 ** Deals with printing
 */
 
-void		print_file(const char *file_name, t_flag_bit flags);
+void		print_file(const char *file_name, t_flag_bit flags, char const *directory_path);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -110,5 +112,13 @@ void		concat_file_to_directory
 
 void		error_flag(t_flag_bit flag);
 void		error_null_argv(void);
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** FILE: sorting/set_compare_function.c
+** Deals with determining how to sort the file nodes
+*/
+
+void	*set_compare_function(t_flag_bit flags);
 
 #endif
