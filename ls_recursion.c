@@ -6,11 +6,29 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 19:23:45 by kmira             #+#    #+#             */
-/*   Updated: 2019/06/02 19:40:15 by kmira            ###   ########.fr       */
+/*   Updated: 2019/06/02 20:00:32 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls.h"
+
+void		tree_recursion(t_file_tree *root, t_flag_bit *flags)
+{
+	struct stat info;
+
+	ft_bzero(&info, sizeof(info));
+	if (root != NULL)
+	{
+		if (root->smaller != NULL)
+			tree_recursion(root->smaller, flags);
+		stat(root->path_name, &info);
+		if (*flags & FLAG_R && S_ISDIR(info.st_mode))
+			if (root->d_name[0] != '.' || (root->d_name[0] != '.' && root->d_name[1] != '.'))
+				ls_main(root->path_name, flags);
+		if (root->greater != NULL)
+			tree_recursion(root->greater, flags);
+	}
+}
 
 void		ls_recurse_into(char const *argv, t_flag_bit *flags)
 {
