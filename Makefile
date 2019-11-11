@@ -6,26 +6,31 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/06/02 23:51:35 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/08 11:50:17 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -march=native
+# -O2 -flto -march=native
 NAME = ft_ls
 LIBRARY = libft/libft.a
+INCLUDES = -I includes
 
 FILES = \
-			errors \
-			file_expansion \
+			cmp_functions \
+			debug \
 			flag_parser \
-			ls_entry \
-			ls_recursion \
+			free_tree \
+			get_inodes \
+			io_out \
+			list_directory \
+			ls_error \
+			ls_utils \
 			main \
-			output \
-			utils \
-			set_compare_function
 
-SRCS = $(addsuffix .c, $(FILES))
+C_FILES = $(addprefix srcs/, $(FILES))
+
+SRCS = $(addsuffix .c, $(C_FILES))
 OBJS = $(addsuffix .o, $(FILES))
 
 all: $(NAME)
@@ -40,7 +45,7 @@ $(LIBRARY):
 	make clean -C libft/
 
 $(OBJS):
-	gcc $(FLAGS) -c $(SRCS)
+	@gcc $(FLAGS) $(INCLUDES) -c $(SRCS)
 
 clean:
 	@echo "Cleaning your .o files"
@@ -48,13 +53,15 @@ clean:
 	@rm -f $(OBJS)
 
 fclean: clean
-	make -C libft/ fclean
-	rm -f $(NAME)
+	@make -C libft/ fclean
+	@rm -f $(NAME)
 
 re: fclean all
 
 rebuild: clean
-	rm -f $(NAME)
-	make all
-	make clean
-	clear
+	@rm -f $(NAME)
+	@make all
+	@make clean
+	@clear
+
+.PHONY: clean

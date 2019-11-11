@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/02 14:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/06/02 22:47:10 by kmira            ###   ########.fr       */
+/*   Created: 2019/11/06 02:17:23 by kmira             #+#    #+#             */
+/*   Updated: 2019/11/09 23:44:40 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ls.h"
+#include "ls_main.h"
 
-void	concat_file_to_directory
-	(char *dest, char const *file_name, char const *directory_path)
+void	free_tree(t_inode *root)
 {
-	ft_strcat(dest, directory_path);
-	ft_strcat(dest, "/");
-	ft_strcat(dest, file_name);
+	if (root == NULL)
+		return ;
+	if (root->left != NULL)
+		free_tree(root->left);
+	if (root->right != NULL)
+		free_tree(root->right);
+	free(root);
 }

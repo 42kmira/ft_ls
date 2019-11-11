@@ -5,23 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/29 20:18:08 by kmira             #+#    #+#             */
-/*   Updated: 2019/05/31 15:55:16 by kmira            ###   ########.fr       */
+/*   Created: 2019/11/02 22:34:03 by kmira             #+#    #+#             */
+/*   Updated: 2019/11/09 23:45:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ls.h"
+#include "ls_main.h"
 
-int		main(int ac, char const *argv[])
+int		main(int aa __attribute__((unused)), char **args)
 {
-	t_flag_bit	flags;
-	size_t		arguement_start;
+	size_t			at;
+	t_flag_mask		flags;
+	t_h_output		output_handler;
+	t_inode			*directories;
+	t_inode			*head;
 
-	flags = set_flags(argv, &arguement_start);
-	flags |= FLAG_FIRST_CALL;
-	if (flags < 0)
-		ERROR(flag)(flags);
-	ft_ls_main(flags, argv, arguement_start);
-	(void)ac;
+	at = 1;
+	program_name(args[0]);
+	flags = fetch_flags(&at, args);
+	if ((flags & BAD_FLAG) == 0)
+	{
+		init_h_output(&output_handler, &flags);
+		head = get_inodes_from_args(&args[at], &output_handler);
+		directories = extract_directories(head);
+		handle_directory(directories, &output_handler, &flags);
+		free_tree(head);
+		flush_buffer_str();
+	}
 	return (0);
 }
