@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/09 23:45:26 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 14:18:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		main(int aa __attribute__((unused)), char **args)
 {
 	size_t			at;
 	t_flag_mask		flags;
-	t_h_output		output_handler;
+	t_h_output		h_output;
 	t_inode			*directories;
 	t_inode			*head;
 
@@ -25,10 +25,10 @@ int		main(int aa __attribute__((unused)), char **args)
 	flags = fetch_flags(&at, args);
 	if ((flags & BAD_FLAG) == 0)
 	{
-		init_h_output(&output_handler, &flags);
-		head = get_inodes_from_args(&args[at], &output_handler);
+		init_h_output(&h_output, &flags);
+		head = get_inodes_from_args(&args[at], &h_output);
 		directories = extract_directories(head);
-		handle_directory(directories, &output_handler, &flags);
+		handle_directory(directories, &h_output, &flags);
 		free_tree(head);
 		flush_buffer_str();
 	}

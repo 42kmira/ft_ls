@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/11/08 11:50:17 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/11 14:29:22 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ LIBRARY = libft/libft.a
 INCLUDES = -I includes
 
 FILES = \
+			buffer \
 			cmp_functions \
 			debug \
 			flag_parser \

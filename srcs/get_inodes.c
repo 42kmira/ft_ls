@@ -6,30 +6,30 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 01:24:57 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/10 15:49:09 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 14:39:24 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
-void	insert_inode(t_inode *root, t_inode *node, t_h_output *output_handler)
+void	insert_inode(t_inode *root, t_inode *node, t_h_output *h_output)
 {
 	int	direction;
 
-	direction = ls_master_cmp(root, node, output_handler);
+	direction = ls_master_cmp(root, node, h_output);
 	if (direction == LEFT_NODE)
 	{
 		if (root->left == NULL)
 			root->left = node;
 		else
-			insert_inode(root->left, node, output_handler);
+			insert_inode(root->left, node, h_output);
 	}
 	if (direction == RIGHT_NODE)
 	{
 		if (root->right == NULL)
 			root->right = node;
 		else
-			insert_inode(root->right, node, output_handler);
+			insert_inode(root->right, node, h_output);
 	}
 }
 
@@ -63,18 +63,10 @@ t_inode	*expand_from_path(char *file_name, char *dir_name)
 	return (file);
 }
 
-void	list_directory(t_inode **starting, t_inode *node)
+void	extract_algo(t_inode *root, t_inode **starting)
 {
 	t_inode	*iter;
 
-	iter = *starting;
-	while (iter->next != NULL)
-		iter = iter->next;
-	iter->next = node;
-}
-
-void	extract_algo(t_inode *root, t_inode **starting)
-{
 	if (root->left != NULL)
 		extract_algo(root->left, starting);
 	if (root->type & DIRECTORY)
@@ -82,7 +74,12 @@ void	extract_algo(t_inode *root, t_inode **starting)
 		if (*starting == NULL)
 			*starting = root;
 		else
-			list_directory(starting, root);
+		{
+			iter = *starting;
+			while (iter->next != NULL)
+				iter = iter->next;
+			iter->next = root;
+		}
 	}
 	if (root->right != NULL)
 		extract_algo(root->right, starting);
@@ -98,7 +95,7 @@ t_inode	*extract_directories(t_inode *root)
 	return (starting);
 }
 
-t_inode	*get_inodes_from_args(char **args, t_h_output *output_handler)
+t_inode	*get_inodes_from_args(char **args, t_h_output *h_output)
 {
 	size_t		i;
 	t_inode		*head;
@@ -108,21 +105,21 @@ t_inode	*get_inodes_from_args(char **args, t_h_output *output_handler)
 	head = NULL;
 	if (args[0] != NULL)
 	{
-		output_handler->longest_size = 0;
+		h_output->longest_size = 0;
 		while (args[++i] != NULL)
 			if (head == NULL)
 				head = expand_from_path(args[i], "");
 			else
 			{
 				elem = expand_from_path(args[i], "");
-				insert_inode(head, elem, output_handler);
-				if (elem->size_length > output_handler->longest_size)
-					output_handler->longest_size = elem->size_length;
-				output_handler->only_dir = 0;
+				insert_inode(head, elem, h_output);
+				if (elem->size_length > h_output->longest_size)
+					h_output->longest_size = elem->size_length;
+				h_output->only_dir = 0;
 			}
-		print_tree_type(head, output_handler, BAD_FILE | REG_FILE);
+		print_tree_type(head, h_output, BAD_FILE | REG_FILE);
 	}
-	else if (args[i] == NULL)
+	else if (args[i + 1] == NULL)
 		head = expand_from_path(".", "");
 	return (head);
 }

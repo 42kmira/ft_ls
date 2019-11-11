@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/10 16:42:28 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 14:29:00 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 */
 
 void		print_tree(t_inode *root);
-void		print_tree_type(t_inode *root, t_h_output *output_handler, t_inode_type mask);
+void		print_tree_type(t_inode *root,
+			t_h_output *h_output, t_inode_type mask);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -54,13 +55,14 @@ t_flag_mask	fetch_flags(size_t *at, char **args);
 ** Description: Creates inodes.
 */
 
-t_inode		*get_inodes_from_args(char **args, t_h_output *output_handler);
-void		handle_directory(t_inode *root, t_h_output *output_handler, t_flag_mask *flags);
+t_inode		*get_inodes_from_args(char **args, t_h_output *h_output);
+void		handle_directory(t_inode *root,
+			t_h_output *h_output, t_flag_mask *flags);
 t_inode		*expand_from_path(char *file_name, char *dir_name);
 void		list_directory(t_inode **starting, t_inode *node);
 void		extract_algo(t_inode *root, t_inode **starting);
 t_inode		*extract_directories(t_inode *root);
-void		insert_inode(t_inode *root, t_inode *node, t_h_output *output_handler);
+void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -70,7 +72,7 @@ void		insert_inode(t_inode *root, t_inode *node, t_h_output *output_handler);
 
 int			ls_time_cmp(t_inode *a, t_inode *b);
 int			ls_ascii_cmp(t_inode *a, t_inode *b);
-int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *output_handler);
+int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -83,7 +85,17 @@ int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *output_handler);
 void		free_tree(t_inode *root);
 char		*program_name(char *arg_zero);
 void		create_file_name(t_inode *inode, char *dir_name, char *file_name);
-void		init_h_output(t_h_output *output_handler, t_flag_mask *flags);
+void		init_h_output(t_h_output *h_output, t_flag_mask *flags);
+char		*padded_number(char *num, int pad_length);
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** FILE: io_out.c
+** Description: functions about the buffer.
+*/
+
+void		buffer_output_str(char *str, int final);
+void		flush_buffer_str(void);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -91,13 +103,7 @@ void		init_h_output(t_h_output *output_handler, t_flag_mask *flags);
 ** Description: Handles the outputting of the message
 */
 
-void		buffer_output(t_string *str, int final);
-void		flush_buffer(void);
-
-void		buffer_output_str(char *str, int final);
-void		flush_buffer_str(void);
-
-void		print_directory_header(t_inode *directory, t_h_output *output_handler);
+void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
 void		print_time(struct timespec *time);
 void		print_links(int links);

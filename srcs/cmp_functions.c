@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/10 16:37:34 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 14:18:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ls_time_cmp(t_inode *a, t_inode *b)
 		return (ls_ascii_cmp(a, b));
 }
 
-int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *output_handler)
+int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output)
 {
 	int result;
 
@@ -56,10 +56,10 @@ int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *output_handler)
 	else if (b->type == BAD_FILE)
 		result = LEFT_NODE;
 	else
-		result = output_handler->comparator(a, b);
+		result = h_output->comparator(a, b);
 	if (a->type & BAD_FILE || b->type & BAD_FILE)
 		return (result);
-	if (*output_handler->flags & r_FLAG)
+	if (*h_output->flags & r_FLAG)
 	{
 		if (result == 0)
 			return (RIGHT_NODE);
