@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 23:02:43 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 23:11:34 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,3 @@ void	handle_directory(t_inode *root,
 		root = root->next;
 	}
 }
-
-			// total += elem->stat_info.st_blocks;
-			// if (head != NULL)
-			// 	total += head->stat_info.st_blocks;
-			// if (*h_output->flags & l_FLAG)
-			// 	print_total_blocks(total);
-			//find max sizes here and output them to h_output
