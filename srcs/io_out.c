@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:43:32 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 14:30:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 22:58:32 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,52 @@ void	print_total_blocks(int total)
 	free(number);
 }
 
-void	print_time(struct timespec *time)
+#define SIX_MONTHS (15778463)
+
+void	print_time(struct timespec *time_stamp)
 {
 	char	time_string[26];
 
-	ctime_r(&time->tv_sec, time_string);
-	time_string[16] = '\0';
-	buffer_output_str(&time_string[3], 0);
+	time_string[0] = ' ';
+	ft_strncpy(&time_string[1], ctime(&time_stamp->tv_sec) + 4, 7);
+	if (time_stamp->tv_sec < time(0) - SIX_MONTHS ||
+		time_stamp->tv_sec > time(0) + SIX_MONTHS)
+		ft_strncpy(time_string + 8, ctime(&time_stamp->tv_sec) + 19, 5);
+	else
+		ft_strncpy(time_string + 8, ctime(&time_stamp->tv_sec) + 11, 5);
+	time_string[13] = '\0';
+	buffer_output_str(time_string, 0);
 }
 
-void	print_links(int links)
+void	print_pw_and_gr_names(char *pw_name, char *gr_name, t_h_output *h_output)
 {
-	char	*link_amount;
+	int padd;
 
-	link_amount = ft_itoa(links);
-	buffer_output_str(link_amount, 0);
-	free(link_amount);
+	buffer_output_str(" ", 0);
+	padd = h_output->longest_pw_name - ft_strlen(pw_name);
+	buffer_output_str(pw_name, 0);
+	padd_string(padd + 2);
+	padd = h_output->longest_gr_name - ft_strlen(gr_name);
+	buffer_output_str(gr_name, 0);
+	padd_string(padd + 1);
 }
 
-void	print_size(char *size, int padd_amount)
+void	print_links(char *nlinks, int longest)
 {
-	char	*padded_size;
+	int	padd;
 
-	padded_size = padded_number(size, padd_amount);
-	buffer_output_str(padded_size, 0);
-	free(padded_size);
+	padd = longest - ft_strlen(nlinks);
+	padd_string(padd);
+	buffer_output_str(nlinks, 0);
+}
+
+void	print_size(char *size, int longest)
+{
+	int	padd;
+
+	padd = longest - ft_strlen(size);
+	padd_string(padd);
+	buffer_output_str(size, 0);
 }
 
 void	print_directory_header(t_inode *directory, t_h_output *h_output)

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:35:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/09 23:52:43 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 22:55:45 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	error_stat(t_inode *file)
 		file->type = BAD_FILE;
 		ft_strcpy(&file->file_name[ft_strlen(file->file_name)],
 		COLOR_RESET": file does not exist");
-		file->print_debug = COLOR_RESET": file does not exist";
 		file->color = BOLDRED;
 		errno &= ~(ENOENT);
 	}

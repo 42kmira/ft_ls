@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:38:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 14:30:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 22:35:12 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,53 @@ void	create_file_name(t_inode *inode, char *dir_name, char *file_name)
 	ft_strcpy(&inode->file_name[inode->file_loc], file_name);
 }
 
-char	*padded_number(char *num, int pad_length)
+void	padd_string(int pad_length)
 {
-	int		space_length;
 	int		i;
 	char	*result;
 
 	i = 0;
+	if (pad_length <= 0)
+		return ;
 	result = malloc(sizeof(pad_length) + 1);
-	space_length = pad_length - ft_strlen(num);
-	while (i < space_length)
+	result[pad_length] = '\0';
+	while (i < pad_length)
 	{
 		result[i] = ' ';
 		i = i + 1;
 	}
-	ft_strcpy(&result[i], num);
-	return (result);
+	buffer_output_str(result, 0);
+}
+
+void	fill_long_print_info(t_inode *file)
+{
+	struct passwd	*user_info;
+	struct group	*group_info;
+
+	user_info = getpwuid(file->stat_info.st_uid);
+	group_info = getgrgid(file->stat_info.st_gid);
+	file->size = ft_itoa(file->stat_info.st_size);
+	file->nlinks = ft_itoa(file->stat_info.st_nlink);
+	file->pw_name = ft_strdup(user_info->pw_name);
+	file->gr_name = ft_strdup(group_info->gr_name);
+}
+
+void	add_inode(t_inode **head, char *file_name,
+				char *dir_name, t_h_output *h_output)
+{
+	t_inode			*elem;
+
+	if (*head == NULL)
+	{
+		elem = expand_from_path(file_name, dir_name);
+		*head = elem;
+	}
+	else
+	{
+		elem = expand_from_path(file_name, dir_name);
+		insert_inode(*head, elem, h_output);
+		h_output->only_dir = 0;
+	}
+	if (*h_output->flags & l_FLAG)
+		fill_long_print_info(elem);
 }

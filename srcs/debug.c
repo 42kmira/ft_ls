@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 02:22:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 14:18:27 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 23:00:06 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,32 +47,29 @@ void	print_permissions(mode_t permission)
 	if (permission & S_IXOTH)
 		buff[8] = 'x';
 	buffer_output_str(buff, 0);
-	buffer_output_str("  ", 0);
 }
 
 void	long_print(t_h_output *h_output, t_inode *root)
 {
-	struct passwd	*user_info;
-	struct group	*group_info;
+	char			*real_path;
 
-	user_info = getpwuid(root->stat_info.st_uid);
-	group_info = getgrgid(root->stat_info.st_gid);
 	if (*h_output->flags & c_FLAG)
 		buffer_output_str(root->color, 0);
-	if (root->type & DIRECTORY)
-		buffer_output_str("d", 0);
-	else
-		buffer_output_str("-", 0);
+	buffer_output_str(root->type_letter, 0);
 	print_permissions(root->stat_info.st_mode);
-	print_links(root->stat_info.st_nlink);
-	buffer_output_str(" ", 0);
-	buffer_output_str(user_info->pw_name, 0);
-	buffer_output_str("  ", 0);
-	buffer_output_str(group_info->gr_name, 0);
+	print_links(root->nlinks, h_output->longest_nlinks + 2);
+	print_pw_and_gr_names(root->pw_name, root->gr_name, h_output);
 	print_size(root->size, h_output->longest_size + 2);
 	print_time(&root->stat_info.st_mtimespec);
 	buffer_output_str(" ", 0);
 	buffer_output_str(&root->file_name[root->file_loc], 0);
+	if (root->type & SYM_LINK)
+	{
+		buffer_output_str(" -> ", 0);
+		real_path = ft_strnew(30);
+		readlink(root->file_name, real_path, 30);
+		buffer_output_str(real_path, 0);
+	}
 	if (*h_output->flags & c_FLAG)
 		buffer_output_str(COLOR_RESET, 0);
 	buffer_output_str("\n", 0);

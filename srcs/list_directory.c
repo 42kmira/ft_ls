@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 14:22:47 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/11 23:02:43 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	handle_directory(t_inode *root,
 	DIR				*directory_stream;
 	struct dirent	*inode;
 	t_inode			*head;
-	t_inode			*elem;
-	int				total;
 
 	while (root)
 	{
@@ -49,40 +47,32 @@ void	handle_directory(t_inode *root,
 		if (directory_stream != NULL)
 		{
 			head = NULL;
-			total = 0;
-			h_output->longest_size = 0;
 			print_directory_header(root, h_output);
 			while ((inode = readdir(directory_stream)))
-			{
 				if (inode->d_name[0] != '.' || (*flags & a_FLAG))
-				{
-					if (head == NULL)
-						head = expand_from_path(inode->d_name, root->file_name);
-					else
-					{
-						elem = expand_from_path(inode->d_name, root->file_name);
-						total += elem->stat_info.st_blocks;
-						insert_inode(head, elem, h_output);
-						h_output->only_dir = 0;
-						if (elem->size_length > h_output->longest_size)
-							h_output->longest_size = elem->size_length;
-					}
-				}
-			}
-			if (head != NULL)
-				total += head->stat_info.st_blocks;
-			if (*h_output->flags & l_FLAG)
-				print_total_blocks(total);
+					add_inode(&head, inode->d_name, root->file_name, h_output);
 			closedir(directory_stream);
-			print_tree_type(head, h_output, REG_FILE | DIRECTORY);
+			if (*h_output->flags & l_FLAG)
+			{
+				zero_out_length_data(h_output);
+				find_longest_out_data(head, h_output);
+				print_total_blocks(h_output->total_block_size);
+			}
+			print_tree_type(head, h_output, REG_FILE | DIRECTORY | SYM_LINK);
 			if (*flags & R_FLAG)
 			{
 				h_output->recurse_active = 1;
-				elem = extract_directories(head);
-				handle_directory(elem, h_output, flags);
+				handle_directory(extract_directories(head), h_output, flags);
 			}
 			free_tree(head);
 		}
 		root = root->next;
 	}
 }
+
+			// total += elem->stat_info.st_blocks;
+			// if (head != NULL)
+			// 	total += head->stat_info.st_blocks;
+			// if (*h_output->flags & l_FLAG)
+			// 	print_total_blocks(total);
+			//find max sizes here and output them to h_output
