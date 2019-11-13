@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:35:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 22:55:45 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/13 10:21:11 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ void	error_stat(t_inode *file)
 	}
 	else
 		buffer_output_str("stat() failed seriously", 0);
+}
+
+void	error_cannot_open_file(char *file_name)
+{
+	char *name;
+
+	name = program_name(FETCH_NAME);
+	if (errno == EACCES)
+	{
+		buffer_output_str(name, 0);
+		buffer_output_str(": ", 0);
+		buffer_output_str(file_name, 0);
+		buffer_output_str(": Permission denied\n", 0);
+		errno &= ~(EACCES);
+	}
+	else
+		buffer_output_str("Some other error opening the file.\n", 0);
 }

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 22:44:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/13 10:21:48 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ void		print_pw_and_gr_names(char *pw_name, char *gr_name, t_h_output *h_output);
 */
 
 void		error_ls_usage(void);
-void		error_bad_flag(char bad_key);
 void		error_stat(t_inode *file);
+void		error_bad_flag(char bad_key);
+void		error_cannot_open_file(char *file_name);
 
 #endif

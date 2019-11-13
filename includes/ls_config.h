@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 23:20:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/13 10:13:19 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ typedef struct	s_type_data
 	char			letter;
 }				t_type_data;
 
-static t_type_data	g_type_table[] =
-{
-	{S_IFREG, BOLDLIGHT_PURPLE, 'l'},
-	{S_IFREG, BOLDGREEN, 'l'},
-}
+// static t_type_data	g_type_table[] =
+// {
+// 	{S_IFREG, BOLDLIGHT_PURPLE, 'l'},
+// 	{S_IFREG, BOLDGREEN, 'l'},
+// 	{}
+// }
 
 #endif
