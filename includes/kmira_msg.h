@@ -13,6 +13,6 @@
 #ifndef KMIRA_MSG_H
 # define KMIRA_MSG_H
 
-void	eric_msg(void);
+# define KMIRA_MSG "Write good code - kmira"
 
 #endif
