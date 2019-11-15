@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/13 10:21:48 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 02:21:23 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output);
 ** Description: Functions about comparing.
 */
 
-int			ls_time_cmp(t_inode *a, t_inode *b);
-int			ls_ascii_cmp(t_inode *a, t_inode *b);
 int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output);
 
 /*
@@ -89,7 +87,6 @@ void		init_h_output(t_h_output *h_output, t_flag_mask *flags);
 void		padd_string(int pad_length);
 void		add_inode(t_inode **head, char *file_name,
 				char *dir_name, t_h_output *h_output);
-
 
 void		find_longest_out_data(t_inode *root, t_h_output *h_output);
 void		zero_out_length_data(t_h_output *h_output);
@@ -113,8 +110,9 @@ void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
 void		print_time(struct timespec *time);
 void		print_links(char *nlinks, int longest);
-void		print_size(char *size, int padd_amount);
-void		print_pw_and_gr_names(char *pw_name, char *gr_name, t_h_output *h_output);
+void		print_size(char *size, int longest, struct stat stat_info);
+void		print_pw_and_gr_name(char *pw_name, char *gr_name,
+									t_h_output *h_output);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-

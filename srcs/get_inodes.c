@@ -6,13 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 01:24:57 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 23:19:25 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 02:20:54 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
-void	insert_inode(t_inode *root, t_inode *node, t_h_output *h_output)
+void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output)
 {
 	int	direction;
 
@@ -33,7 +33,24 @@ void	insert_inode(t_inode *root, t_inode *node, t_h_output *h_output)
 	}
 }
 
-t_inode	*expand_from_path(char *file_name, char *dir_name)
+static void	fill_info(t_inode *file)
+{
+	int i;
+
+	i = 0;
+	while (g_type_table[i].key != 0)
+	{
+		if (((file->stat_info.st_mode) & S_IFMT) == g_type_table[i].key)
+		{
+			file->type = g_type_table[i].type;
+			file->color = g_type_table[i].color;
+			file->type_letter[0] = g_type_table[i].letter;
+		}
+		i++;
+	}
+}
+
+t_inode		*expand_from_path(char *file_name, char *dir_name)
 {
 	int		status;
 	t_inode	*file;
@@ -46,26 +63,7 @@ t_inode	*expand_from_path(char *file_name, char *dir_name)
 		if (status != 0)
 			error_stat(file);
 	}
-
-	if (S_ISREG(file->stat_info.st_mode))
-	{
-		file->type = REG_FILE;
-		file->color = BOLDLIGHT_PURPLE;
-		file->type_letter[0] = '-';
-	}
-	else if (S_ISLNK(file->stat_info.st_mode))
-	{
-		file->type = SYM_LINK;
-		file->color = BOLDGREEN;
-		file->type_letter[0] = 'l';
-	}
-	else if (S_ISDIR(file->stat_info.st_mode))
-	{
-		file->type = DIRECTORY;
-		file->color = BOLDPURPLE;
-		file->type_letter[0] = 'd';
-	}
-
+	fill_info(file);
 	if (S_IXUSR & file->stat_info.st_mode
 		&& S_ISREG(file->stat_info.st_mode))
 		file->color = BOLDCYAN;
@@ -76,7 +74,7 @@ t_inode	*expand_from_path(char *file_name, char *dir_name)
 	return (file);
 }
 
-void	extract_algo(t_inode *root, t_inode **starting)
+void		extract_algo(t_inode *root, t_inode **starting)
 {
 	t_inode	*iter;
 
@@ -98,7 +96,7 @@ void	extract_algo(t_inode *root, t_inode **starting)
 		extract_algo(root->right, starting);
 }
 
-t_inode	*extract_directories(t_inode *root)
+t_inode		*extract_directories(t_inode *root)
 {
 	t_inode	*starting;
 
@@ -108,7 +106,7 @@ t_inode	*extract_directories(t_inode *root)
 	return (starting);
 }
 
-void	find_longest_out_data(t_inode *root, t_h_output *h_output)
+void		find_longest_out_data(t_inode *root, t_h_output *h_output)
 {
 	int	length_nlinks;
 	int	length_size;
@@ -136,7 +134,7 @@ void	find_longest_out_data(t_inode *root, t_h_output *h_output)
 	h_output->total_block_size += root->stat_info.st_blocks;
 }
 
-void	zero_out_length_data(t_h_output *h_output)
+void		zero_out_length_data(t_h_output *h_output)
 {
 	h_output->longest_size = 0;
 	h_output->longest_nlinks = 0;
@@ -145,7 +143,7 @@ void	zero_out_length_data(t_h_output *h_output)
 	h_output->total_block_size = 0;
 }
 
-t_inode	*get_inodes_from_args(char **args, t_h_output *h_output)
+t_inode		*get_inodes_from_args(char **args, t_h_output *h_output)
 {
 	size_t		i;
 	t_inode		*head;
@@ -162,7 +160,7 @@ t_inode	*get_inodes_from_args(char **args, t_h_output *h_output)
 			zero_out_length_data(h_output);
 			find_longest_out_data(head, h_output);
 		}
-		print_tree_type(head, h_output, BAD_FILE | REG_FILE | SYM_LINK);
+		print_tree_type(head, h_output, ~(DIRECTORY));
 	}
 	else if (args[i + 1] == NULL)
 		head = expand_from_path(".", "");

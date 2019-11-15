@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:38:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 22:35:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 02:17:46 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ char	*program_name(char *arg_zero)
 	return (name);
 }
 
+void	fetch_cmp_function(t_h_output *h_output)
+{
+	int			i;
+	t_flag_mask *key;
+
+	i = 0;
+	key = h_output->flags;
+	h_output->comparator = ls_ascii_cmp;
+	while (g_cmp_dispatch[i].key != 0)
+	{
+		if (*key & g_cmp_dispatch[i].key)
+			h_output->comparator = g_cmp_dispatch[i].comparator;
+		i++;
+	}
+}
+
 void	init_h_output(t_h_output *h_output, t_flag_mask *flags)
 {
 	ft_bzero(h_output, sizeof(*h_output));
@@ -39,14 +55,7 @@ void	init_h_output(t_h_output *h_output, t_flag_mask *flags)
 	h_output->flags = flags;
 	h_output->longest_size = 0;
 	*h_output->flags = (*h_output->flags | c_FLAG);
-	if (*h_output->flags & t_FLAG)
-	{
-		h_output->comparator = &ls_time_cmp;
-	}
-	else
-	{
-		h_output->comparator = &ls_ascii_cmp;
-	}
+	fetch_cmp_function(h_output);
 }
 
 void	create_file_name(t_inode *inode, char *dir_name, char *file_name)

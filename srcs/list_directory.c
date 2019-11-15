@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/13 10:25:13 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 00:54:45 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	handle_directory(t_inode *root,
 				find_longest_out_data(head, h_output);
 				print_total_blocks(h_output->total_block_size);
 			}
-			print_tree_type(head, h_output, REG_FILE | DIRECTORY | SYM_LINK);
+			print_tree_type(head, h_output, ~(HIDDEN_FILE) | HIDDEN_FILE);
 			if (*flags & R_FLAG)
 			{
 				h_output->recurse_active = 1;

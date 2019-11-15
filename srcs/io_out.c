@@ -6,11 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:43:32 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 22:58:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 02:20:06 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
+#include <sys/xattr.h>
+#include <sys/acl.h>
 
 void	print_total_blocks(int total)
 {
@@ -40,7 +42,7 @@ void	print_time(struct timespec *time_stamp)
 	buffer_output_str(time_string, 0);
 }
 
-void	print_pw_and_gr_names(char *pw_name, char *gr_name, t_h_output *h_output)
+void	print_pw_and_gr_name(char *pw_name, char *gr_name, t_h_output *h_output)
 {
 	int padd;
 
@@ -62,13 +64,32 @@ void	print_links(char *nlinks, int longest)
 	buffer_output_str(nlinks, 0);
 }
 
-void	print_size(char *size, int longest)
+void	print_size(char *size, int longest, struct stat stat_info)
 {
-	int	padd;
+	int		padd;
+	char	*buff;
 
-	padd = longest - ft_strlen(size);
-	padd_string(padd);
-	buffer_output_str(size, 0);
+	if ((stat_info.st_mode & S_IFMT) == S_IFCHR
+	|| (stat_info.st_mode & S_IFMT) == S_IFCHR)
+	{
+		buff = ft_itoa(major(stat_info.st_rdev));
+		padd = 3 - ft_strlen(buff);
+		padd_string(padd);
+		buffer_output_str(buff, 0);
+		buffer_output_str(", ", 0);
+		free(buff);
+		buff = ft_itoa(minor(stat_info.st_rdev));
+		padd = 3 - ft_strlen(buff);
+		padd_string(padd);
+		buffer_output_str(buff, 0);
+		free(buff);
+	}
+	else
+	{
+		padd = longest - ft_strlen(size);
+		padd_string(padd);
+		buffer_output_str(size, 0);
+	}
 }
 
 void	print_directory_header(t_inode *directory, t_h_output *h_output)

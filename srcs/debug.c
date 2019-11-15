@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 02:22:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/11 23:00:06 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/15 02:19:45 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	long_print(t_h_output *h_output, t_inode *root)
 	buffer_output_str(root->type_letter, 0);
 	print_permissions(root->stat_info.st_mode);
 	print_links(root->nlinks, h_output->longest_nlinks + 2);
-	print_pw_and_gr_names(root->pw_name, root->gr_name, h_output);
-	print_size(root->size, h_output->longest_size + 2);
+	print_pw_and_gr_name(root->pw_name, root->gr_name, h_output);
+	print_size(root->size, h_output->longest_size + 2, root->stat_info);
 	print_time(&root->stat_info.st_mtimespec);
 	buffer_output_str(" ", 0);
 	buffer_output_str(&root->file_name[root->file_loc], 0);
