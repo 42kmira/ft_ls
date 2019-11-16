@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/13 23:40:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:14:06 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,20 @@ int		ls_ascii_cmp(t_inode *a, t_inode *b)
 		return (LEFT_NODE);
 }
 
-int		ls_time_cmp(t_inode *a, t_inode *b)
+int		ls_size_cmp(t_inode *a, t_inode *b)
+{
+	int result;
+
+	result = b->stat_info.st_size - a->stat_info.st_size;
+	if (result > 0)
+		return (LEFT_NODE);
+	else if (result < 0)
+		return (RIGHT_NODE);
+	else
+		return (ls_ascii_cmp(a, b));
+}
+
+int		ls_mtime_cmp(t_inode *a, t_inode *b)
 {
 	struct timespec	a_time;
 	struct timespec	b_time;
@@ -42,6 +55,16 @@ int		ls_time_cmp(t_inode *a, t_inode *b)
 		return (RIGHT_NODE);
 	else
 		return (ls_ascii_cmp(a, b));
+}
+
+/*
+** The u flag does not affect sorting at all. Instead it affects
+** what will be printed when using the -l flag.
+*/
+
+int		ls_atime_cmp(t_inode *a, t_inode *b)
+{
+	return (ls_ascii_cmp(a, b));
 }
 
 int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output)

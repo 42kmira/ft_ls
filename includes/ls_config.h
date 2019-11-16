@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 02:21:53 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:12:43 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static t_ls_flag	g_flags[] =
 	{'t', t_FLAG},
 	{'1', one_FLAG},
 	{'c', c_FLAG},
+	{'u', u_FLAG},
+	{'U', U_FLAG},
+	{'S', S_FLAG},
 	{'\0', BAD_FLAG}
 };
 
@@ -54,12 +57,16 @@ typedef struct	s_cmp_pair
 	int				(*comparator)(t_inode *, t_inode *);
 }				t_cmp_pair;
 
-int			ls_time_cmp(t_inode *a, t_inode *b);
+int			ls_mtime_cmp(t_inode *a, t_inode *b);
+int			ls_atime_cmp(t_inode *a, t_inode *b);
 int			ls_ascii_cmp(t_inode *a, t_inode *b);
+int			ls_size_cmp(t_inode *a, t_inode *b);
 
 static t_cmp_pair	g_cmp_dispatch[] =
 {
-	{t_FLAG, ls_time_cmp},
+	{t_FLAG, ls_mtime_cmp},
+	{u_FLAG, ls_atime_cmp},
+	{S_FLAG, ls_size_cmp},
 	{0, ls_ascii_cmp}
 };
 

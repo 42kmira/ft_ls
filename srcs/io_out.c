@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:43:32 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 02:20:06 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 00:50:17 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,23 @@ void	print_total_blocks(int total)
 
 #define SIX_MONTHS (15778463)
 
-void	print_time(struct timespec *time_stamp)
+struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags)
 {
-	char	time_string[26];
+	if (*flags & u_FLAG)
+		return (&stat_info->st_atimespec);
+	else if (*flags & U_FLAG)
+		return (&stat_info->st_birthtimespec);
+	else
+		return (&stat_info->st_mtimespec);
+}
+
+void	print_time(struct stat *stat_info, t_h_output *h_output)
+{
+	char			time_string[26];
+	struct timespec	*time_stamp;
 
 	time_string[0] = ' ';
+	time_stamp = fetch_time(stat_info, h_output->flags);
 	ft_strncpy(&time_string[1], ctime(&time_stamp->tv_sec) + 4, 7);
 	if (time_stamp->tv_sec < time(0) - SIX_MONTHS ||
 		time_stamp->tv_sec > time(0) + SIX_MONTHS)

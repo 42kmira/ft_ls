@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 02:21:23 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 00:41:15 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		flush_buffer_str(void);
 
 void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
-void		print_time(struct timespec *time);
+void		print_time(struct stat *stat_info, t_h_output *h_output);
 void		print_links(char *nlinks, int longest);
 void		print_size(char *size, int longest, struct stat stat_info);
 void		print_pw_and_gr_name(char *pw_name, char *gr_name,

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:04:24 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/10 16:35:41 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:10:10 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ static void	toggle_flag(char key, t_flag_mask *dest)
 	}
 }
 
+void		clean_up_flags(t_flag_mask *flags, char key)
+{
+	if (*flags & l_FLAG && *flags & one_FLAG)
+	{
+		if (key == '1')
+			*flags &= ~(l_FLAG);
+		else
+			*flags &= ~(one_FLAG);
+	}
+	if ((*flags & u_FLAG || *flags & U_FLAG) && *flags & c_FLAG)
+	{
+		if (key == 'c')
+			*flags &= ~(u_FLAG | U_FLAG);
+		else
+			*flags &= ~(c_FLAG);
+	}
+}
+
 t_flag_mask	fetch_flags(size_t *at, char **args)
 {
 	size_t		j;
@@ -49,6 +67,7 @@ t_flag_mask	fetch_flags(size_t *at, char **args)
 		{
 			key = args[*at][j];
 			toggle_flag(key, &result);
+			clean_up_flags(&result, key);
 			j++;
 		}
 		*at = *at + 1;

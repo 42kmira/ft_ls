@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:35 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 02:17:48 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:13:11 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ typedef enum		e_inode_type
 
 typedef enum		e_flag_mask
 {
-	l_FLAG = 0b00000001,
-	R_FLAG = 0b00000010,
-	a_FLAG = 0b00000100,
-	r_FLAG = 0b00001000,
-	t_FLAG = 0b00010000,
-	c_FLAG = 0b00100000,
-	one_FLAG = 0b01000000,
-	BAD_FLAG = 0b10000000
+	l_FLAG   = 0b00000000001,
+	R_FLAG   = 0b00000000010,
+	a_FLAG   = 0b00000000100,
+	r_FLAG   = 0b00000001000,
+	t_FLAG   = 0b00000010000,
+	c_FLAG   = 0b00000100000,
+	u_FLAG   = 0b00001000000,
+	U_FLAG   = 0b00010000000,
+	S_FLAG   = 0b00100000000,
+	one_FLAG = 0b01000000000,
+	BAD_FLAG = 0b10000000000
 }					t_flag_mask;
 
 typedef struct		s_ls_flag
