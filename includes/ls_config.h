@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/16 01:12:43 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:20:08 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_ls_flag	g_flags[] =
 	{'u', u_FLAG},
 	{'U', U_FLAG},
 	{'S', S_FLAG},
+	{'f', f_FLAG},
 	{'\0', BAD_FLAG}
 };
 
@@ -61,12 +62,14 @@ int			ls_mtime_cmp(t_inode *a, t_inode *b);
 int			ls_atime_cmp(t_inode *a, t_inode *b);
 int			ls_ascii_cmp(t_inode *a, t_inode *b);
 int			ls_size_cmp(t_inode *a, t_inode *b);
+int			ls_no_cmp(t_inode *a, t_inode *b);
 
 static t_cmp_pair	g_cmp_dispatch[] =
 {
 	{t_FLAG, ls_mtime_cmp},
 	{u_FLAG, ls_atime_cmp},
 	{S_FLAG, ls_size_cmp},
+	{f_FLAG, ls_no_cmp},
 	{0, ls_ascii_cmp}
 };
 

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/16 01:14:06 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/16 01:35:13 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@ int		ls_ascii_cmp(t_inode *a, t_inode *b)
 		return (RIGHT_NODE);
 	else
 		return (LEFT_NODE);
+}
+
+int		ls_no_cmp(t_inode *a __attribute__((unused)), t_inode *b __attribute__((unused)))
+{
+	// printf("FILE: %s", a->file_name);
+	if (b->file_name[b->file_loc] == '.' || a->file_name[a->file_loc] == '.')
+	{
+		if (a->file_name[a->file_loc + 1] == '\0')
+			return (LEFT_NODE);
+		if (b->file_name[b->file_loc + 1] == '\0')
+			return (LEFT_NODE);
+		if (a->file_name[a->file_loc + 1] == '.')
+			return (LEFT_NODE);
+		if (b->file_name[b->file_loc + 1] == '.')
+			return (LEFT_NODE);
+	}
+	return (RIGHT_NODE);
 }
 
 int		ls_size_cmp(t_inode *a, t_inode *b)
