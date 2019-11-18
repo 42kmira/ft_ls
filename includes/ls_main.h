@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 05:41:22 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:09:45 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		long_print(t_h_output *h_output, t_inode *root);
 ** Description: Handles the printing for the -l flag
 */
 
-void	print_permissions(mode_t permission);
+void	print_permissions(mode_t permission, char *file_name);
 void	print_links(char *nlinks, int longest);
 void	print_pw_gr_names(char *pw_name, char *gr_name, t_h_output *h_output);
 void	print_size(char *size, int longest, struct stat stat_info);

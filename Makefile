@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/11/18 05:41:22 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/18 05:46:29 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDES = -I includes
 FILES = \
 			buffer \
 			cmp_functions \
-			add_inodes \
+			create_inodes \
 			debug \
 			flag_parser \
 			free_tree \

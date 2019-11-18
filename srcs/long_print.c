@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 22:35:12 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:51:20 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:08:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,31 @@
 
 #define SIX_MONTHS (15778463)
 
-void	print_permissions(mode_t permission)
+// ssize_t listxattr(const char *path, char *list, size_t size);
+
+char	get_xattribute(char *file_name)
 {
-	char	buff[10];
+	ssize_t	xattr;
+	acl_t	acl;
+	char	special;
+
+	xattr = listxattr(file_name, NULL, 0, XATTR_NOFOLLOW);
+	acl = acl_get_link_np(file_name, ACL_TYPE_EXTENDED);
+	if (xattr > 0)
+		special = '@';
+	else if (acl != NULL)
+		special = '+';
+	else
+		special = ' ';
+	return (special);
+}
+
+void	print_permissions(mode_t permission, char *file_name)
+{
+	char	buff[11];
 
 	ft_memset(buff, '-', sizeof(buff));
-	buff[9] = '\0';
+	buff[10] = '\0';
 	if (permission & S_IRUSR)
 		buff[0] = 'r';
 	if (permission & S_IWUSR)
@@ -38,6 +57,7 @@ void	print_permissions(mode_t permission)
 		buff[7] = 'w';
 	if (permission & S_IXOTH)
 		buff[8] = 'x';
+	buff[9] = get_xattribute(file_name);
 	buffer_output_str(buff, 0);
 }
 
