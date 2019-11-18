@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/17 23:57:39 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:34:17 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_flag_mask	fetch_flags(size_t *at, char **args);
 ** Description: Creates inodes.
 */
 
+void		create_inode(t_inode **head, char *file_name,
+				char *dir_name, t_h_output *h_output);
 t_inode		*get_inodes_from_args(char **args, t_h_output *h_output);
 void		handle_directory(t_inode *root,
 			t_h_output *h_output, t_flag_mask *flags);
@@ -82,17 +84,22 @@ int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output);
 
 # define FETCH_NAME (char *)1
 
-void		free_tree(t_inode *root);
 char		*program_name(char *arg_zero);
-void		create_file_name(t_inode *inode, char *dir_name, char *file_name);
-void		init_h_output(t_h_output *h_output, t_flag_mask *flags);
+void		fetch_cmp_function(t_h_output *h_output);
 void		padd_string(int pad_length);
-void		add_inode(t_inode **head, char *file_name,
-				char *dir_name, t_h_output *h_output);
+struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags);
 
+void		free_tree(t_inode *root);
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** FILE: output_utils.c
+** Description: Does debugging stuff.
+*/
+
+void		init_h_output(t_h_output *h_output, t_flag_mask *flags);
 void		find_longest_out_data(t_inode *root, t_h_output *h_output);
 void		zero_out_length_data(t_h_output *h_output);
-struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-

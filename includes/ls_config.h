@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/17 23:53:18 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:06:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ls_no_cmp(t_inode *a, t_inode *b);
 static t_cmp_pair	g_cmp_dispatch[] =
 {
 	{t_FLAG, ls_mtime_cmp},
-	{u_FLAG, ls_atime_cmp},
+	{u_FLAG, ls_ascii_cmp},
 	{S_FLAG, ls_size_cmp},
 	{f_FLAG, ls_no_cmp},
 	{0, ls_ascii_cmp}

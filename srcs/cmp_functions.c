@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/17 22:14:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:06:10 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ int		ls_mtime_cmp(t_inode *a, t_inode *b)
 /*
 ** The u flag does not affect sorting at all. Instead it affects
 ** what will be printed when using the -l flag.
+**
+**	int		ls_atime_cmp(t_inode *a, t_inode *b)
+**	{
+**		return (ls_ascii_cmp(a, b));
+**	}
+**
+** The above was commented out and replaced with ls_ascii_cmp
+** because of norm reasons. Ideally all the cmp functions would be in a
+** individual files in a folder or all in one file.
 */
-
-int		ls_atime_cmp(t_inode *a, t_inode *b)
-{
-	return (ls_ascii_cmp(a, b));
-}
 
 int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output)
 {

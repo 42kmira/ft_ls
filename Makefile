@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/11/17 22:36:56 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/18 00:34:31 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ INCLUDES = -I includes
 FILES = \
 			buffer \
 			cmp_functions \
+			create_inodes \
 			debug \
 			flag_parser \
 			free_tree \
@@ -29,6 +30,7 @@ FILES = \
 			ls_error \
 			ls_utils \
 			main \
+			output_utils \
 
 C_FILES = $(addprefix srcs/, $(FILES))
 

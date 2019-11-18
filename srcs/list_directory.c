@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 00:54:45 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:34:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_directory(t_inode *root,
 			head = NULL;
 			while ((inode = readdir(directory_stream)))
 				if (inode->d_name[0] != '.' || (*flags & a_FLAG))
-					add_inode(&head, inode->d_name, root->file_name, h_output);
+					create_inode(&head, inode->d_name, root->file_name, h_output);
 			closedir(directory_stream);
 			if (*h_output->flags & l_FLAG)
 			{
