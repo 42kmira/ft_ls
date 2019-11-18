@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 05:42:31 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:33:55 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	handle_directory(t_inode *root,
 	while (root)
 	{
 		directory_stream = fetch_directory(root->file_name, h_output);
-		print_directory_header(root, h_output);
 		if (directory_stream != NULL)
 		{
+			print_directory_header(root, h_output);
 			head = NULL;
 			while ((dirent = readdir(directory_stream)))
 				if (dirent->d_name[0] != '.' || (*flags & a_FLAG))
@@ -76,7 +76,7 @@ void	handle_directory(t_inode *root,
 				handle_directory(extract_directories(head), h_output, flags);
 			free_tree(head);
 		}
-		else
+		else if (is_hidden(root->file_name) != 1)
 			error_cannot_open_file(root->file_name);
 		root = root->next;
 	}
