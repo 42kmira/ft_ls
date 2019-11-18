@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:06:26 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:20:16 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static t_ls_flag	g_flags[] =
 	{'\0', BAD_FLAG}
 };
 
-typedef struct	s_type_data
+typedef struct		s_type_data
 {
 	int				key;
 	t_inode_type	type;
 	char			*color;
 	char			letter;
-}				t_type_data;
+}					t_type_data;
 
 static t_type_data	g_type_table[] =
 {
@@ -52,17 +52,17 @@ static t_type_data	g_type_table[] =
 	{0, REG_FILE, "", '-'}
 };
 
-typedef struct	s_cmp_pair
+typedef struct		s_cmp_pair
 {
 	t_flag_mask		key;
 	int				(*comparator)(t_inode *, t_inode *);
-}				t_cmp_pair;
+}					t_cmp_pair;
 
-int			ls_mtime_cmp(t_inode *a, t_inode *b);
-int			ls_atime_cmp(t_inode *a, t_inode *b);
-int			ls_ascii_cmp(t_inode *a, t_inode *b);
-int			ls_size_cmp(t_inode *a, t_inode *b);
-int			ls_no_cmp(t_inode *a, t_inode *b);
+int					ls_mtime_cmp(t_inode *a, t_inode *b);
+int					ls_atime_cmp(t_inode *a, t_inode *b);
+int					ls_ascii_cmp(t_inode *a, t_inode *b);
+int					ls_size_cmp(t_inode *a, t_inode *b);
+int					ls_no_cmp(t_inode *a, t_inode *b);
 
 static t_cmp_pair	g_cmp_dispatch[] =
 {

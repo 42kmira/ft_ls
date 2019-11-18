@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:38:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 05:31:11 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:21:30 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,19 @@ void			padd_string(int pad_length)
 	buffer_output_str(result, 0);
 }
 
-struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags)
+char			get_xattribute(char *file_name)
 {
-	if (*flags & u_FLAG)
-		return (&stat_info->st_atimespec);
-	else if (*flags & U_FLAG)
-		return (&stat_info->st_birthtimespec);
+	ssize_t	xattr;
+	acl_t	acl;
+	char	special;
+
+	xattr = listxattr(file_name, NULL, 0, XATTR_NOFOLLOW);
+	acl = acl_get_link_np(file_name, ACL_TYPE_EXTENDED);
+	if (xattr > 0)
+		special = '@';
+	else if (acl != NULL)
+		special = '+';
 	else
-		return (&stat_info->st_mtimespec);
+		special = ' ';
+	return (special);
 }

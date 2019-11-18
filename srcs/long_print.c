@@ -6,32 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 22:35:12 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:08:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:24:54 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
 #define SIX_MONTHS (15778463)
-
-// ssize_t listxattr(const char *path, char *list, size_t size);
-
-char	get_xattribute(char *file_name)
-{
-	ssize_t	xattr;
-	acl_t	acl;
-	char	special;
-
-	xattr = listxattr(file_name, NULL, 0, XATTR_NOFOLLOW);
-	acl = acl_get_link_np(file_name, ACL_TYPE_EXTENDED);
-	if (xattr > 0)
-		special = '@';
-	else if (acl != NULL)
-		special = '+';
-	else
-		special = ' ';
-	return (special);
-}
 
 void	print_permissions(mode_t permission, char *file_name)
 {
@@ -117,7 +98,12 @@ void	print_time(struct stat *stat_info, t_h_output *h_output)
 	struct timespec	*time_stamp;
 
 	time_string[0] = ' ';
-	time_stamp = fetch_time(stat_info, h_output->flags);
+	if (*h_output->flags & u_FLAG)
+		time_stamp = &stat_info->st_atimespec;
+	else if (*h_output->flags & U_FLAG)
+		time_stamp = &stat_info->st_birthtimespec;
+	else
+		time_stamp = &stat_info->st_mtimespec;
 	ft_strncpy(&time_string[1], ctime(&time_stamp->tv_sec) + 4, 7);
 	if (time_stamp->tv_sec < time(0) - SIX_MONTHS ||
 		time_stamp->tv_sec > time(0) + SIX_MONTHS)

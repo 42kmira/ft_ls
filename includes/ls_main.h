@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:09:45 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:18:16 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ int			ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output);
 char		*program_name(char *arg_zero);
 void		fetch_cmp_function(t_h_output *h_output);
 void		padd_string(int pad_length);
-struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags);
-
 void		free_tree(t_inode *root);
 
 /*
@@ -120,6 +118,7 @@ void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
 void		short_print(t_h_output *h_output, t_inode *root);
 void		long_print(t_h_output *h_output, t_inode *root);
+char		get_xattribute(char *file_name);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -127,11 +126,11 @@ void		long_print(t_h_output *h_output, t_inode *root);
 ** Description: Handles the printing for the -l flag
 */
 
-void	print_permissions(mode_t permission, char *file_name);
-void	print_links(char *nlinks, int longest);
-void	print_pw_gr_names(char *pw_name, char *gr_name, t_h_output *h_output);
-void	print_size(char *size, int longest, struct stat stat_info);
-void	print_time(struct stat *stat_info, t_h_output *h_output);
+void		print_permissions(mode_t permission, char *file_name);
+void		print_links(char *nlinks, int longest);
+void		print_pw_gr_names(char *pw_name, char *gr_name, t_h_output *h_out);
+void		print_size(char *size, int longest, struct stat stat_info);
+void		print_time(struct stat *stat_info, t_h_output *h_output);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
