@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 02:17:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/09 23:44:40 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:41:51 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,9 @@ void	free_tree(t_inode *root)
 		free_tree(root->left);
 	if (root->right != NULL)
 		free_tree(root->right);
+	free(root->size);
+	free(root->nlinks);
+	free(root->pw_name);
+	free(root->gr_name);
 	free(root);
 }
