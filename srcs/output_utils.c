@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:07:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:12:21 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:52:01 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_h_output(t_h_output *h_output, t_flag_mask *flags)
 	fetch_cmp_function(h_output);
 }
 
-void		zero_out_length_data(t_h_output *h_output)
+void	zero_out_length_data(t_h_output *h_output)
 {
 	h_output->longest_size = 0;
 	h_output->longest_nlinks = 0;
@@ -33,7 +33,7 @@ void		zero_out_length_data(t_h_output *h_output)
 	h_output->total_block_size = 0;
 }
 
-void		find_longest_out_data(t_inode *root, t_h_output *h_output)
+void	find_longest_out_data(t_inode *root, t_h_output *h_output)
 {
 	int	length_nlinks;
 	int	length_size;

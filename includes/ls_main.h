@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:34:17 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:50:28 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void		flush_buffer_str(void);
 
 void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
+void		short_print(t_h_output *h_output, t_inode *root);
+void		long_print(t_h_output *h_output, t_inode *root);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -125,7 +127,11 @@ void		print_total_blocks(int total);
 ** Description: Handles the printing for the -l flag
 */
 
-void	long_print(t_h_output *h_output, t_inode *root);
+void	print_permissions(mode_t permission);
+void	print_links(char *nlinks, int longest);
+void	print_pw_gr_names(char *pw_name, char *gr_name, t_h_output *h_output);
+void	print_size(char *size, int longest, struct stat stat_info);
+void	print_time(struct stat *stat_info, t_h_output *h_output);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-

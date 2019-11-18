@@ -6,13 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:38:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:19:08 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:40:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
-char	*program_name(char *arg_zero)
+char			*program_name(char *arg_zero)
 {
 	static char *name;
 
@@ -30,7 +30,7 @@ char	*program_name(char *arg_zero)
 	return (name);
 }
 
-void	fetch_cmp_function(t_h_output *h_output)
+void			fetch_cmp_function(t_h_output *h_output)
 {
 	int			i;
 	t_flag_mask *key;
@@ -46,7 +46,7 @@ void	fetch_cmp_function(t_h_output *h_output)
 	}
 }
 
-void	padd_string(int pad_length)
+void			padd_string(int pad_length)
 {
 	int		i;
 	char	*result;

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:14:27 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:26:46 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:39:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_inode		*expand_from_path(char *file_name, char *dir_name)
 	return (file);
 }
 
-void	create_inode(t_inode **head, char *file_name,
+void		create_inode(t_inode **head, char *file_name,
 				char *dir_name, t_h_output *h_output)
 {
 	t_inode			*elem;

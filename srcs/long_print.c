@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 22:35:12 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:00:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:51:20 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define SIX_MONTHS (15778463)
 
-static void	print_permissions(mode_t permission)
+void	print_permissions(mode_t permission)
 {
 	char	buff[10];
 
@@ -41,7 +41,7 @@ static void	print_permissions(mode_t permission)
 	buffer_output_str(buff, 0);
 }
 
-static void	print_links(char *nlinks, int longest)
+void	print_links(char *nlinks, int longest)
 {
 	int	padd;
 
@@ -50,7 +50,7 @@ static void	print_links(char *nlinks, int longest)
 	buffer_output_str(nlinks, 0);
 }
 
-static void	print_pw_and_gr_name(char *pw_name, char *gr_name, t_h_output *h_output)
+void	print_pw_gr_names(char *pw_name, char *gr_name, t_h_output *h_output)
 {
 	int padd;
 
@@ -63,8 +63,7 @@ static void	print_pw_and_gr_name(char *pw_name, char *gr_name, t_h_output *h_out
 	padd_string(padd + 1);
 }
 
-
-static void	print_size(char *size, int longest, struct stat stat_info)
+void	print_size(char *size, int longest, struct stat stat_info)
 {
 	int		padd;
 	char	*buff;
@@ -92,7 +91,7 @@ static void	print_size(char *size, int longest, struct stat stat_info)
 	}
 }
 
-static void	print_time(struct stat *stat_info, t_h_output *h_output)
+void	print_time(struct stat *stat_info, t_h_output *h_output)
 {
 	char			time_string[26];
 	struct timespec	*time_stamp;
@@ -107,30 +106,4 @@ static void	print_time(struct stat *stat_info, t_h_output *h_output)
 		ft_strncpy(time_string + 8, ctime(&time_stamp->tv_sec) + 11, 5);
 	time_string[13] = '\0';
 	buffer_output_str(time_string, 0);
-}
-
-void	long_print(t_h_output *h_output, t_inode *root)
-{
-	char			*real_path;
-
-	if (*h_output->flags & c_FLAG)
-		buffer_output_str(root->color, 0);
-	buffer_output_str(root->type_letter, 0);
-	print_permissions(root->stat_info.st_mode);
-	print_links(root->nlinks, h_output->longest_nlinks + 2);
-	print_pw_and_gr_name(root->pw_name, root->gr_name, h_output);
-	print_size(root->size, h_output->longest_size + 2, root->stat_info);
-	print_time(&root->stat_info, h_output);
-	buffer_output_str(" ", 0);
-	buffer_output_str(&root->file_name[root->file_loc], 0);
-	if (root->type & SYM_LINK)
-	{
-		buffer_output_str(" -> ", 0);
-		real_path = ft_strnew(30);
-		readlink(root->file_name, real_path, 30);
-		buffer_output_str(real_path, 0);
-	}
-	if (*h_output->flags & c_FLAG)
-		buffer_output_str(COLOR_RESET, 0);
-	buffer_output_str("\n", 0);
 }
