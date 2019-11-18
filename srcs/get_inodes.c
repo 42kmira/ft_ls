@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 01:24:57 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:29:40 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 05:41:22 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_inode		*get_inodes_from_args(char **args, t_h_output *h_output)
 	{
 		h_output->longest_size = 0;
 		while (args[++i] != NULL)
-			create_inode(&head, args[i], "", h_output);
+			add_inode(&head, args[i], "", h_output);
 		if (*h_output->flags & l_FLAG)
 		{
 			zero_out_length_data(h_output);

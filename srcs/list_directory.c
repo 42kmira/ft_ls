@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:56:05 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 05:42:31 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,48 @@ char	is_hidden(char *file_path)
 	return (result);
 }
 
+void	l_directory_protocal(t_h_output *h_output, t_inode *head)
+{
+	if (*h_output->flags & l_FLAG)
+	{
+		zero_out_length_data(h_output);
+		find_longest_out_data(head, h_output);
+		print_total_blocks(h_output->total_block_size);
+	}
+}
+
+DIR		*fetch_directory(char *file_name, t_h_output *h_output)
+{
+	DIR				*directory_stream;
+
+	directory_stream = opendir(file_name);
+	if (h_output->recurse_active == 1 && is_hidden(file_name))
+		directory_stream = NULL;
+	return (directory_stream);
+}
+
 void	handle_directory(t_inode *root,
 		t_h_output *h_output, t_flag_mask *flags)
 {
 	DIR				*directory_stream;
-	struct dirent	*inode;
+	struct dirent	*dirent;
 	t_inode			*head;
 
 	while (root)
 	{
-		directory_stream = opendir(root->file_name);
-		if (h_output->recurse_active == 1 && is_hidden(root->file_name))
-			directory_stream = NULL;
+		directory_stream = fetch_directory(root->file_name, h_output);
 		print_directory_header(root, h_output);
 		if (directory_stream != NULL)
 		{
 			head = NULL;
-			while ((inode = readdir(directory_stream)))
-				if (inode->d_name[0] != '.' || (*flags & a_FLAG))
-					create_inode(&head, inode->d_name, root->file_name, h_output);
+			while ((dirent = readdir(directory_stream)))
+				if (dirent->d_name[0] != '.' || (*flags & a_FLAG))
+					add_inode(&head, dirent->d_name, root->file_name, h_output);
 			closedir(directory_stream);
-			if (*h_output->flags & l_FLAG)
-			{
-				zero_out_length_data(h_output);
-				find_longest_out_data(head, h_output);
-				print_total_blocks(h_output->total_block_size);
-			}
+			l_directory_protocal(h_output, head);
 			print_tree_type(head, h_output, ~(HIDDEN_FILE) | HIDDEN_FILE);
-			if (*flags & R_FLAG)
-			{
-				h_output->recurse_active = 1;
+			if (*flags & R_FLAG && (h_output->recurse_active = 1))
 				handle_directory(extract_directories(head), h_output, flags);
-			}
 			free_tree(head);
 		}
 		else
