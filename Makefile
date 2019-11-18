@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/11/11 14:29:22 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/17 22:36:56 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILES = \
 			get_inodes \
 			io_out \
 			list_directory \
+			long_print \
 			ls_error \
 			ls_utils \
 			main \

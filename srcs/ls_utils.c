@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:38:23 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/15 02:17:46 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 00:01:02 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,14 @@ void	add_inode(t_inode **head, char *file_name,
 	}
 	if (*h_output->flags & l_FLAG)
 		fill_long_print_info(elem);
+}
+
+struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags)
+{
+	if (*flags & u_FLAG)
+		return (&stat_info->st_atimespec);
+	else if (*flags & U_FLAG)
+		return (&stat_info->st_birthtimespec);
+	else
+		return (&stat_info->st_mtimespec);
 }

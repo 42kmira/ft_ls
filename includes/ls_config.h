@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/16 01:20:08 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/17 23:53:18 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 
 static t_ls_flag	g_flags[] =
 {
-	{'l', l_FLAG},
 	{'R', R_FLAG},
+	{'S', S_FLAG},
+	{'U', U_FLAG},
 	{'a', a_FLAG},
+	{'c', c_FLAG},
+	{'f', f_FLAG},
+	{'l', l_FLAG},
 	{'r', r_FLAG},
 	{'t', t_FLAG},
-	{'1', one_FLAG},
-	{'c', c_FLAG},
 	{'u', u_FLAG},
-	{'U', U_FLAG},
-	{'S', S_FLAG},
-	{'f', f_FLAG},
+	{'1', one_FLAG},
 	{'\0', BAD_FLAG}
 };
 

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/16 00:41:15 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/17 23:57:39 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 # include <errno.h>
 # include <grp.h>
 # include <pwd.h>
+# include <sys/acl.h>
 # include <sys/stat.h>
+# include <sys/xattr.h>
 # include <time.h>
 
 /*
@@ -90,10 +92,11 @@ void		add_inode(t_inode **head, char *file_name,
 
 void		find_longest_out_data(t_inode *root, t_h_output *h_output);
 void		zero_out_length_data(t_h_output *h_output);
+struct timespec	*fetch_time(struct stat *stat_info, t_flag_mask *flags);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
-** FILE: io_out.c
+** FILE: buffer.c
 ** Description: functions about the buffer.
 */
 
@@ -108,11 +111,14 @@ void		flush_buffer_str(void);
 
 void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
-void		print_time(struct stat *stat_info, t_h_output *h_output);
-void		print_links(char *nlinks, int longest);
-void		print_size(char *size, int longest, struct stat stat_info);
-void		print_pw_and_gr_name(char *pw_name, char *gr_name,
-									t_h_output *h_output);
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** FILE: long_print.c
+** Description: Handles the printing for the -l flag
+*/
+
+void	long_print(t_h_output *h_output, t_inode *root);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-

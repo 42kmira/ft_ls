@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:35 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/16 01:19:18 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/17 22:05:46 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct		s_string
 
 typedef enum		e_inode_type
 {
-	SOCK_FILE   = 0b000000001,
-	SYM_LINK    = 0b000000010,
-	REG_FILE    = 0b000000100,
-	BLOCK_FILE  = 0b000001000,
-	DIRECTORY   = 0b000010000,
-	CHAR_FILE   = 0b000100000,
-	FIFO_FILE   = 0b001000000,
-	BAD_FILE    = 0b010000000,
+	SOCK_FILE = 0b000000001,
+	SYM_LINK = 0b000000010,
+	REG_FILE = 0b000000100,
+	BLOCK_FILE = 0b000001000,
+	DIRECTORY = 0b000010000,
+	CHAR_FILE = 0b000100000,
+	FIFO_FILE = 0b001000000,
+	BAD_FILE = 0b010000000,
 	HIDDEN_FILE = 0b100000000
 }					t_inode_type;
 
