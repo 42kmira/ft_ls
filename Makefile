@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/30 09:04:56 by kmira             #+#    #+#              #
-#    Updated: 2019/11/18 05:46:29 by kmira            ###   ########.fr        #
+#    Updated: 2019/11/18 06:39:01 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ FILES = \
 			buffer \
 			cmp_functions \
 			create_inodes \
-			debug \
 			flag_parser \
 			free_tree \
 			get_inodes \

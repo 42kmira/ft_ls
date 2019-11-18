@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:18:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 06:37:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@
 # include <sys/stat.h>
 # include <sys/xattr.h>
 # include <time.h>
-
-/*
-** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
-** FILE: debug.c
-** Description: Does debugging stuff.
-*/
-
-void		print_tree(t_inode *root);
-void		print_tree_type(t_inode *root,
-			t_h_output *h_output, t_inode_type mask);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -88,6 +78,7 @@ char		*program_name(char *arg_zero);
 void		fetch_cmp_function(t_h_output *h_output);
 void		padd_string(int pad_length);
 void		free_tree(t_inode *root);
+char		get_xattribute(char *file_name);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -118,7 +109,8 @@ void		print_directory_header(t_inode *directory, t_h_output *h_output);
 void		print_total_blocks(int total);
 void		short_print(t_h_output *h_output, t_inode *root);
 void		long_print(t_h_output *h_output, t_inode *root);
-char		get_xattribute(char *file_name);
+void		print_tree_type(t_inode *root,
+			t_h_output *h_output, t_inode_type mask);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
