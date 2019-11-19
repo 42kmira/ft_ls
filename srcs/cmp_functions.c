@@ -6,24 +6,11 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:06:10 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:19:41 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
-
-int		ls_ascii_cmp(t_inode *a, t_inode *b)
-{
-	int result;
-
-	result = strcmp(a->file_name, b->file_name);
-	if (result > 0)
-		return (LEFT_NODE);
-	else if (result < 0)
-		return (RIGHT_NODE);
-	else
-		return (LEFT_NODE);
-}
 
 int		ls_no_cmp(t_inode *a, t_inode *b)
 {
@@ -86,6 +73,19 @@ int		ls_mtime_cmp(t_inode *a, t_inode *b)
 ** because of norm reasons. Ideally all the cmp functions would be in a
 ** individual files in a folder or all in one file.
 */
+
+int		ls_ascii_cmp(t_inode *a, t_inode *b)
+{
+	int result;
+
+	result = strcmp(a->file_name, b->file_name);
+	if (result > 0)
+		return (LEFT_NODE);
+	else if (result < 0)
+		return (RIGHT_NODE);
+	else
+		return (LEFT_NODE);
+}
 
 int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output)
 {

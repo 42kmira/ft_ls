@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:02 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:20:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:20:04 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct		s_cmp_pair
 	int				(*comparator)(t_inode *, t_inode *);
 }					t_cmp_pair;
 
+int					ls_no_cmp(t_inode *a, t_inode *b);
+int					ls_size_cmp(t_inode *a, t_inode *b);
+int					ls_ascii_cmp(t_inode *a, t_inode *b);
 int					ls_mtime_cmp(t_inode *a, t_inode *b);
 int					ls_atime_cmp(t_inode *a, t_inode *b);
-int					ls_ascii_cmp(t_inode *a, t_inode *b);
-int					ls_size_cmp(t_inode *a, t_inode *b);
-int					ls_no_cmp(t_inode *a, t_inode *b);
 
 static t_cmp_pair	g_cmp_dispatch[] =
 {

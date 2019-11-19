@@ -6,13 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:33:55 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:56:25 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
-char	is_hidden(char *file_path)
+static char	is_hidden(char *file_path)
 {
 	char	*delim;
 	int		result;
@@ -32,7 +32,7 @@ char	is_hidden(char *file_path)
 	return (result);
 }
 
-void	l_directory_protocal(t_h_output *h_output, t_inode *head)
+static void		l_directory_protocal(t_h_output *h_output, t_inode *head)
 {
 	if (*h_output->flags & l_FLAG)
 	{
@@ -42,7 +42,7 @@ void	l_directory_protocal(t_h_output *h_output, t_inode *head)
 	}
 }
 
-DIR		*fetch_directory(char *file_name, t_h_output *h_output)
+static DIR		*fetch_directory(char *file_name, t_h_output *h_output)
 {
 	DIR				*directory_stream;
 
@@ -71,13 +71,13 @@ void	handle_directory(t_inode *root,
 					add_inode(&head, dirent->d_name, root->file_name, h_output);
 			closedir(directory_stream);
 			l_directory_protocal(h_output, head);
-			print_tree_type(head, h_output, ~(HIDDEN_FILE) | HIDDEN_FILE);
+			print_tree(head, h_output, ~(HIDDEN_FILE) | HIDDEN_FILE);
 			if (*flags & R_FLAG && (h_output->recurse_active = 1))
 				handle_directory(extract_directories(head), h_output, flags);
 			free_tree(head);
 		}
 		else if (is_hidden(root->file_name) != 1)
-			error_cannot_open_file(root->file_name);
+			error_cannot_open_file(&root->file_name[root->file_loc]);
 		root = root->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:39:35 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:20:49 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:46:57 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <stdio.h>
 
 typedef struct		s_string
 {

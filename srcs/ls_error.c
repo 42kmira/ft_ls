@@ -6,15 +6,11 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:35:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/17 22:18:30 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:59:51 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
-
-/*
-**	printf("%s: illegal option -- %c\n", name, bad_key);
-*/
 
 void	error_bad_flag(char bad_key)
 {
@@ -55,8 +51,12 @@ void	error_stat(t_inode *file)
 void	error_cannot_open_file(char *file_name)
 {
 	char *name;
+	char *temp;
 
 	name = program_name(FETCH_NAME);
+	temp = ft_strrchr(file_name, '/');
+	if (temp != NULL)
+		file_name = temp + 1;
 	if (errno == EACCES)
 	{
 		buffer_output_str(name, 0);

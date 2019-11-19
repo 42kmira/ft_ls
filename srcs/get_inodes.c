@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 01:24:57 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 05:41:22 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:30:02 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_inode		*get_inodes_from_args(char **args, t_h_output *h_output)
 			zero_out_length_data(h_output);
 			find_longest_out_data(head, h_output);
 		}
-		print_tree_type(head, h_output, ~(DIRECTORY));
+		print_tree(head, h_output, ~(DIRECTORY));
 	}
 	else if (args[i + 1] == NULL)
 		head = expand_from_path(".", "");

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 06:37:44 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 15:53:13 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** HEADERS
 */
 
-# include "debug.h"
 # include "color.h"
 # include "libft.h"
 # include "ls_config.h"
@@ -43,20 +42,29 @@ t_flag_mask	fetch_flags(size_t *at, char **args);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
-** FILE: get_inodes.c
+** FILE: get_inodes.c, create_inodes.c
 ** Description: Creates inodes.
 */
 
 void		add_inode(t_inode **head, char *file_name,
 				char *dir_name, t_h_output *h_output);
+t_inode		*expand_from_path(char *file_name, char *dir_name);
+void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output);
+
+t_inode		*extract_directories(t_inode *root);
+void		extract_algo(t_inode *root, t_inode **starting);
 t_inode		*get_inodes_from_args(char **args, t_h_output *h_output);
+
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** FILE: list_directory.c
+** Description: Deals with going from inodes to directories.
+*/
+
 void		handle_directory(t_inode *root,
 			t_h_output *h_output, t_flag_mask *flags);
-t_inode		*expand_from_path(char *file_name, char *dir_name);
-void		list_directory(t_inode **starting, t_inode *node);
-void		extract_algo(t_inode *root, t_inode **starting);
-t_inode		*extract_directories(t_inode *root);
-void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output);
+
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -105,12 +113,11 @@ void		flush_buffer_str(void);
 ** Description: Handles the outputting of the message
 */
 
+void		print_tree(t_inode *root, t_h_output *h_output, t_inode_type mask);
 void		print_directory_header(t_inode *directory, t_h_output *h_output);
-void		print_total_blocks(int total);
 void		short_print(t_h_output *h_output, t_inode *root);
 void		long_print(t_h_output *h_output, t_inode *root);
-void		print_tree_type(t_inode *root,
-			t_h_output *h_output, t_inode_type mask);
+void		print_total_blocks(int total);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
