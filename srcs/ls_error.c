@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:35:43 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:59:51 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:56:24 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	error_ls_usage(void)
 	name = program_name(FETCH_NAME);
 	write(1, "usage: ", 8);
 	write(1, name, ft_strlen(name));
-	write(1, " [-RSUacflrtu1] [file ...]\n", 22);
+	write(1, " [-RSUacflrtu1] [file ...]\n", 28);
 }
 
 void	error_stat(t_inode *file)
