@@ -6,11 +6,17 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 21:45:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:19:41 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:20:38 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
+
+/*
+** Although there should be no ordering,
+** for some reason the files '.' and '..'
+** are listed as the first ones on the original ls.
+*/
 
 int		ls_no_cmp(t_inode *a, t_inode *b)
 {
@@ -86,6 +92,20 @@ int		ls_ascii_cmp(t_inode *a, t_inode *b)
 	else
 		return (LEFT_NODE);
 }
+
+/*
+** Files are checked if they are non-existant. Files that cannot be opened
+** for whatever reason are taken priority according to ascii sort.
+** This eliminates the need for including such logic in the other sorting
+** functions.
+**
+** The r_FLAG, '-r', is also handled here, for the same reason. So that no
+** extra functions for reverse sorting have to be made, or so that such
+** logic is not included in all the sorting functions. Reverse sorting is done
+** by 'fliping' the return of the regular sorts with a chirality of right,
+** (RIGHT_NODE); imposing that no difference, which would lead to LEFT_NODE
+** interpretation, is actually RIGHT_NODE.
+*/
 
 int		ls_master_cmp(t_inode *a, t_inode *b, t_h_output *h_output)
 {

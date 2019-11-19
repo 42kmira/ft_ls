@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:56:25 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:41:07 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,16 @@ static char	is_hidden(char *file_path)
 	return (result);
 }
 
-static void		l_directory_protocal(t_h_output *h_output, t_inode *head)
+/*
+** This function prepares things for the long format printing.
+** This is done by clearing out the previous recorded data,
+** traversing the tree and recording the longest sequences
+** and then printing out:
+** total <blocks>
+** that appears when using the l_FLAG, '-l'.
+*/
+
+inline static void	l_directory_protocal(t_h_output *h_output, t_inode *head)
 {
 	if (*h_output->flags & l_FLAG)
 	{
@@ -62,9 +71,9 @@ void	handle_directory(t_inode *root,
 	while (root)
 	{
 		directory_stream = fetch_directory(root->file_name, h_output);
+		print_directory_header(root, h_output);
 		if (directory_stream != NULL)
 		{
-			print_directory_header(root, h_output);
 			head = NULL;
 			while ((dirent = readdir(directory_stream)))
 				if (dirent->d_name[0] != '.' || (*flags & a_FLAG))

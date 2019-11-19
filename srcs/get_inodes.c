@@ -6,11 +6,18 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 01:24:57 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:30:02 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:37:19 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
+
+/*
+** From the sorted binary tree these two functions find and create
+** a list that points to the first directory. This list is a linear one
+** whose head will be placed in the variable starting, and which will
+** be passed onto recursive calls.
+*/
 
 void		extract_algo(t_inode *root, t_inode **starting)
 {
@@ -43,6 +50,13 @@ t_inode		*extract_directories(t_inode *root)
 		extract_algo(root, &starting);
 	return (starting);
 }
+
+/*
+** The structure of this ls assumes the usage of the structure t_inode,
+** in a sorted binary tree form.
+** However the program is started with a char *. This converts those
+** strings into the structure for the first call.
+*/
 
 t_inode		*get_inodes_from_args(char **args, t_h_output *h_output)
 {

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 05:42:12 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 05:42:15 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:31:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void		insert_inode(t_inode *root, t_inode *node, t_h_output *h_output)
 			insert_inode(root->right, node, h_output);
 	}
 }
+
+/*
+** Concatenates the directory name, dir_name and the file name, file_name
+** A slash is inserted in the middle and a record of the furtherest slash
+** is recorded.
+*/
 
 static void	create_file_name(t_inode *inode, char *dir_name, char *file_name)
 {
@@ -68,6 +74,7 @@ t_inode		*expand_from_path(char *file_name, char *dir_name)
 	t_inode	*file;
 
 	file = malloc(sizeof(*file));
+	ft_bzero(file, sizeof(*file));
 	create_file_name(file, dir_name, file_name);
 	status = lstat(file->file_name, &file->stat_info);
 	if (status != 0)

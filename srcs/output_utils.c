@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:07:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 00:52:01 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:45:12 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_h_output(t_h_output *h_output, t_flag_mask *flags)
 	h_output->newline = 0;
 	h_output->flags = flags;
 	h_output->longest_size = 0;
-	*h_output->flags = (*h_output->flags | c_FLAG);
+	*h_output->flags = (*h_output->flags ^ c_FLAG);
 	fetch_cmp_function(h_output);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 23:04:24 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:22:56 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:45:05 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static void		clean_up_flags(t_flag_mask *flags, char key)
 	}
 	if (*flags & f_FLAG)
 		*flags |= a_FLAG;
-	if (*flags & c_FLAG)
-		*flags ^= c_FLAG;
 }
 
 t_flag_mask	fetch_flags(size_t *at, char **args)
