@@ -6,13 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 23:10:59 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 16:41:07 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:48:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ls_main.h"
 
-static char	is_hidden(char *file_path)
+static char			is_hidden(char *file_path)
 {
 	char	*delim;
 	int		result;
@@ -51,7 +51,7 @@ inline static void	l_directory_protocal(t_h_output *h_output, t_inode *head)
 	}
 }
 
-static DIR		*fetch_directory(char *file_name, t_h_output *h_output)
+static DIR			*fetch_directory(char *file_name, t_h_output *h_output)
 {
 	DIR				*directory_stream;
 
@@ -61,8 +61,8 @@ static DIR		*fetch_directory(char *file_name, t_h_output *h_output)
 	return (directory_stream);
 }
 
-void	handle_directory(t_inode *root,
-		t_h_output *h_output, t_flag_mask *flags)
+void				handle_directory(t_inode *root, t_h_output *h_output,
+									t_flag_mask *flags)
 {
 	DIR				*directory_stream;
 	struct dirent	*dirent;

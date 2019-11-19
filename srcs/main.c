@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/13 10:24:19 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:46:56 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		main(int aa __attribute__((unused)), char **args)
 	t_inode			*head;
 
 	at = 1;
-	// program_name(args[0]);
-	program_name("ls");
+	program_name(args[0]);
 	flags = fetch_flags(&at, args);
 	if ((flags & BAD_FLAG) == 0)
 	{

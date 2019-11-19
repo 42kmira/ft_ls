@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 22:34:37 by kmira             #+#    #+#             */
-/*   Updated: 2019/11/18 15:53:13 by kmira            ###   ########.fr       */
+/*   Updated: 2019/11/18 16:46:50 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_inode		*extract_directories(t_inode *root);
 void		extract_algo(t_inode *root, t_inode **starting);
 t_inode		*get_inodes_from_args(char **args, t_h_output *h_output);
 
-
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
 ** FILE: list_directory.c
@@ -64,7 +63,6 @@ t_inode		*get_inodes_from_args(char **args, t_h_output *h_output);
 
 void		handle_directory(t_inode *root,
 			t_h_output *h_output, t_flag_mask *flags);
-
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
