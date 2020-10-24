@@ -19,5 +19,5 @@ Output is buffered to minimize calls to write, a costly system call to the kerne
 I have aliased ls to run my program instead, below is a gif showing the program in action.
 
 <br>
-<img align="left" height="400" src="https://github.com/42kmira/ft_ls/blob/master/resources/ft_ls.gif" />
+<img align="left" height="600" src="https://github.com/42kmira/ft_ls/blob/master/resources/ft_ls.gif" />
 <br>
