@@ -4,7 +4,7 @@
 
 The goal of this project was to recreate partial functionality of the program ```ls```.
 
-```ft_ls [-RSUacflrtu1] [file ...]```
+Usage: ```./ft_ls [-RSUacflrtu1] [file ...]```
 
 Handles sticky bits, certain errors like permission denied, nonexistent paths, flag errors, and the flags seen above.
 
