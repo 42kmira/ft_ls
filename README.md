@@ -1,5 +1,5 @@
 <br>
-<img align="left" height="250" src="https://github.com/MrColour/ft_ls/blob/master/resources/Untitled.png" />
+<img align="left" height="250" src="https://github.com/42kmira/ft_ls/blob/master/resources/README.png" />
 <br>
 
 The goal of this project was to recreate partial functionality of the program ```ls```.
@@ -19,5 +19,5 @@ Output is buffered to minimize calls to write, a costly system call to the kerne
 I have aliased ls to run my program instead, below is a gif showing the program in action.
 
 <br>
-<img align="left" height="250" src="https://github.com/MrColour/ft_ls/blob/master/resources/ft_ls.png" />
+<img align="left" height="400" src="https://github.com/42kmira/ft_ls/blob/master/resources/ft_ls.gif" />
 <br>
