@@ -16,7 +16,7 @@ binary trees may be huge.
 
 Output is buffered to minimize calls to write, a costly system call to the kernel. Output is colored by default, but can be toggled off by the `c` flag.
 
-I have aliased ls to run my program instead, below is a gif showing the program in action.
+I have aliased ```ls``` to run my program instead, below is a gif showing the program in action.
 
 <br>
 <img align="left" height="600" src="https://github.com/42kmira/ft_ls/blob/master/resources/ft_ls.gif" />
